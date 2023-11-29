@@ -55,6 +55,7 @@ if ($result->num_rows > 0) {
             <th>Total Price</th>
             <th>Paid Status</th>
             <th>Action</th>
+            <th>Payments</th>
           </tr>";
 
     while ($row = $result->fetch_assoc()) {
@@ -75,8 +76,9 @@ if ($result->num_rows > 0) {
                 <td>$showTime</td>
                 <td>$seatNumbers</td>
                 <td>$totalPrice</td>
-                <td><img src='../uploads/$imgname' style='height:100px;' >  </td>
+                
                 <td id='paid-status-{$row['id']}'>" . ($paid ? 'Paid' : 'Not Paid') . "</td>
+                
                 <td>
                 <form method='post'>
                     <input type='hidden' name='booking_id' value='{$row['id']}'>
@@ -89,6 +91,7 @@ if ($result->num_rows > 0) {
                         <input type='submit' name='delete_booking' value='Delete booked'>
                     </form>
                 </td>
+                <td><img src='../uploads/$imgname' style='height:100px; width:100px;'  id ='jsuse'>  </td>
               </tr>";
     }
 
@@ -103,3 +106,21 @@ $conn->close();
 ?>
 <link rel="stylesheet" href="booking.css">
 
+
+<script>
+
+
+var img = document.getElementsByTagName('img');
+
+for (var i = 0; i < img.length; i++) {
+    img[i].onclick = function() {
+        this.style.height = '350px';
+        this.style.width = '700px';
+    };
+
+    img[i].onmouseout = function() {
+        this.style.height = '100px';
+        this.style.width = '100px';
+    };
+}
+</script>
