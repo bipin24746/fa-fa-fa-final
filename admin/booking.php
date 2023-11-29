@@ -59,6 +59,7 @@ if ($result->num_rows > 0) {
 
     while ($row = $result->fetch_assoc()) {
         $name = $row['user_name'];
+        $imgname = $row['image_path'];
         $movieName = $row['movie_name'];
         $showDate = date('F j, Y', strtotime($row['show_date'])); // Format the date
         $showTime = date('h:i A', strtotime($row['show_time'])); // Format the time
@@ -74,6 +75,7 @@ if ($result->num_rows > 0) {
                 <td>$showTime</td>
                 <td>$seatNumbers</td>
                 <td>$totalPrice</td>
+                <td><img src='../uploads/$imgname' style='height:100px;' >  </td>
                 <td id='paid-status-{$row['id']}'>" . ($paid ? 'Paid' : 'Not Paid') . "</td>
                 <td>
                 <form method='post'>
@@ -100,3 +102,4 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 <link rel="stylesheet" href="booking.css">
+
