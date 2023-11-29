@@ -80,7 +80,7 @@ if (isset($_POST['submit'])) {
             <input type="hidden" name="booking_id" value="<?php echo $_GET['booking_id']; ?>">
 
             <label>Select Images:</label>
-            <input type="file" name="images" accept=".jpg, .png, .jpeg">
+            <input type="file" name="images[]" multiple accept="image/*">
 
             <input type="submit" name="submit" value="Upload Images">
         </form>
