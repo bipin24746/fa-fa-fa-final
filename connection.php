@@ -4,9 +4,11 @@ $username = "root";
 $password = "";
 $dbname = "movieproject";
 
-$conn = new mysqli($servername, $username, $password, $dbname );
+// Create a new MySQLi object to establish a connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-if($conn->connect_error){
-    die("connection error" .$conn->connect_error);
+// Check if the connection was successful
+if ($conn->connect_error) {
+    die("Connection error: " . $conn->connect_error);
 }
 ?>
