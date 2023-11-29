@@ -12,7 +12,7 @@
 
     <?php
     session_start();
-    if(isset($_SESSION['email'])){
+    if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['user_name']))    {
     echo '<li>
     <li><a href="mybookings.php" class="container-li">My Bookings</a></li>
     <a href = logout.php class="container-li">Logout</a>

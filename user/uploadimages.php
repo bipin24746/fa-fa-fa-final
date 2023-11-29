@@ -1,4 +1,6 @@
 <?php
+session_start(); // Move session_start to the beginning
+
 require '../connection.php';
 include 'header.php';
 
@@ -15,10 +17,9 @@ $email = $_SESSION['email'];
 // Check if form is submitted
 if (isset($_POST['submit'])) {
     // Check if there are uploaded files
-    if (isset($_FILES['images']) && !empty($_FILES['images']['name'][0])) {
+    if (isset($_FILES['images']) && is_array($_FILES['images']['tmp_name']) && count($_FILES['images']['tmp_name']) > 0) {
         $bookingId = $_POST['booking_id']; // Assuming you have a hidden input field for booking_id in your form
         $uploadedImages = $_FILES['images'];
-        $image_payment = $_FILES['images']['name'];
         // Define upload directory
         $uploadDir = '../uploads/';
 
@@ -37,23 +38,23 @@ if (isset($_POST['submit'])) {
                 // Move the uploaded file to the destination
                 if (move_uploaded_file($tmpName, $targetPath)) {
                     // Update the 'image_path' column in the 'booking' table
-                    $sqlUpdateBooking = $conn->prepare("UPDATE booking SET image_path = ? WHERE id = ?");
-                    $sqlUpdateBooking->bind_param("si", $targetPath, $bookingId);
-                
-                    if (!$sqlUpdateBooking->execute()) {
-                        throw new Exception("Error updating user image in the database: " . $conn->error);
-                    }
-                
-                    $sqlUpdateBooking->close();
+                    $uid = $_SESSION['user_id'];
+                    $imagePath = $fileName; // Use the generated filename or adjust as needed
+
+                    $sql = "UPDATE booking SET image_path = ? WHERE user_id = ?";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param('si', $imagePath, $uid);
+                    $stmt->execute();
+                    $stmt->close();
+
+                    echo "Image uploaded successfully!";
                 } else {
-                    throw new Exception("Error uploading file.");
+                    echo "Image upload unsuccessful.";
                 }
             }
 
             // Commit the transaction if all insertions are successful
             $conn->commit();
-
-            echo "Images uploaded successfully!";
         } catch (Exception $e) {
             // Rollback the transaction in case of any error during insertions
             $conn->rollback();
@@ -64,9 +65,6 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html>

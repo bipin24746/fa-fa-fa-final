@@ -1,7 +1,8 @@
 <?php
 require '../connection.php';
 include 'header.php';
-
+?>
+<?php
 $movieId = $_POST['movie_id'];
 $selectedDate = $_POST['selected_date'];
 $selectedShowTime = $_POST['selected_show_time'];
@@ -63,7 +64,7 @@ if (isset($_POST['bookSeats'])) {
                     }
                 }
 
-                Commit the transaction if all insertions are successful ajsbdjasbdjasbdjhasvjhvsajfvhjsadvjhsavjhasd jhasvdjhasvdjhvads
+                // Commit the transaction if all insertions are successful
                 $conn->commit();
 
                 echo "<p>Seats booked successfully!</p>";
