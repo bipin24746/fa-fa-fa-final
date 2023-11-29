@@ -63,7 +63,7 @@ if (isset($_POST['bookSeats'])) {
                     }
                 }
 
-                // Commit the transaction if all insertions are successful
+                Commit the transaction if all insertions are successful ajsbdjasbdjasbdjhasvjhvsajfvhjsadvjhsavjhasd jhasvdjhasvdjhvads
                 $conn->commit();
 
                 echo "<p>Seats booked successfully!</p>";
